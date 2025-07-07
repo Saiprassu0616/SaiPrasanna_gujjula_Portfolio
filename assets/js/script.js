@@ -15,17 +15,36 @@ const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
 
 
+// modal variable
+const modalImg = document.querySelector("[data-modal-img]");
+const modalTitle = document.querySelector("[data-modal-title]");
+const modalText = document.querySelector("[data-modal-text]");
 
+// modal toggle function
+const testimonialsModalFunc = function () {
+  modalContainer.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
 
+// add click event to all modal items
+for (let i = 0; i < testimonialsItem.length; i++) {
 
+  testimonialsItem[i].addEventListener("click", function () {
 
+    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
+    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
+    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
+    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
 
+    testimonialsModalFunc();
 
+  });
 
+}
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
+const selectValue = document.querySelector("[data-select-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
 select.addEventListener("click", function () { elementToggleFunc(this); });
@@ -101,34 +120,19 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
-
-
-// page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
 navigationLinks.forEach(navLink => {
   navLink.addEventListener("click", function () {
-    const targetPage = this.innerText.toLowerCase();
+    const targetPage = this.textContent.trim().toLowerCase();
 
-    // Loop through pages and toggle visibility
     pages.forEach(page => {
-      if (page.dataset.page === targetPage) {
-        page.classList.add("active");
-      } else {
-        page.classList.remove("active");
-      }
+      page.classList.toggle("active", page.dataset.page === targetPage);
     });
 
-    // Loop through nav links and toggle active class
-    navigationLinks.forEach(link => {
-      if (link === this) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
+    navigationLinks.forEach(link => link.classList.remove("active"));
+    this.classList.add("active");
 
     window.scrollTo(0, 0);
   });
