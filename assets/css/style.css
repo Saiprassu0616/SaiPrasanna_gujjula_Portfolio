@@ -766,6 +766,14 @@ main {
 
 .article-title { margin-bottom: 30px; }
 
+[data-page] {
+  display: none;
+}
+
+[data-page].active {
+  display: block;
+}
+
 
 /**
  * education and experience 
